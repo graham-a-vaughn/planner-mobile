@@ -7,5 +7,11 @@
 </ion-header>
 
 <ion-content padding>
-  This is where you'll add items to your planner.
+  <div>This is where you'll add items to your planner.</div>
+  <div>
+    <button ion-item (click)="createChecklist($event)">
+      <ion-icon name="add" item-left></ion-icon>
+      Create Checklist
+    </button>
+  </div>
 </ion-content>

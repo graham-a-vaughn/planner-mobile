@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Create A Checklist
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="checklist" (ngSubmit)="logForm()">
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-input type="text" formControlName="description"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!checklist.valid">Submit</button>
+  </form>
+  <ion-list>
+    <ion-list-header>You are going to create a checklist.</ion-list-header>
+    <ion-item>
+      <ion-icon name="ionic" item-left></ion-icon>
+      @ionicframework
+    </ion-item>
+  </ion-list>
+</ion-content>
