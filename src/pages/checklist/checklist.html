@@ -7,12 +7,27 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="checklist" (ngSubmit)="logForm()">
+  <form [formGroup]="checklistGroup" (ngSubmit)="logForm()">
     <ion-item>
       <ion-label>Description</ion-label>
       <ion-input type="text" formControlName="description"></ion-input>
     </ion-item>
-    <button ion-button type="submit" [disabled]="!checklist.valid">Submit</button>
+
+    <div formArrayName="items">
+    <ion-list>
+
+      <ion-item *ngFor="let itemForm of items.controls; index as i">
+
+            <ion-input type="text" formControlName="{{i}}"
+                       placeholder="Add a new checklist item"></ion-input>
+
+      </ion-item>
+    </ion-list>
+      </div>
+
+    <button ion-button type="submit" [disabled]="!checklistGroup.valid">Submit</button>
+
+
   </form>
   <ion-list>
     <ion-list-header>You are going to create a checklist.</ion-list-header>

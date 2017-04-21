@@ -9,6 +9,9 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ChecklistPage } from '../pages/checklist/checklist';
 
+import { Checklist } from '../entities/checklist';
+import { ChecklistItem } from '../entities/checklist-item';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 

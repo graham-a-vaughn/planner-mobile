@@ -14,4 +14,15 @@
       Create Checklist
     </button>
   </div>
+
+  <ion-list>
+    <ion-list-header>Current Checklists</ion-list-header>
+    <ion-item *ngFor="let item of currentItems">
+      <span>{{item.description}}&nbsp;&nbsp;</span>
+      <span>Created:&nbsp;</span><span>{{item.dateAdded}}</span>
+    </ion-item>
+    <ion-item *ngIf="currentItems.length == 0">
+      <i>You don't have any checklists.</i>
+    </ion-item>
+  </ion-list>
 </ion-content>
