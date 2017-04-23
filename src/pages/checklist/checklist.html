@@ -9,18 +9,25 @@
 <ion-content>
   <form [formGroup]="checklistGroup" (ngSubmit)="logForm()">
     <ion-item>
-      <ion-label>Description</ion-label>
-      <ion-input type="text" formControlName="description"></ion-input>
+      <ion-label color="primary" fixed>Description</ion-label>
+      <ion-input type="text" formControlName="description" placeholder="Enter a name/description for the checklist"></ion-input>
     </ion-item>
+    <div [hidden]="checklistGroup.controls.description.valid || checklistGroup.controls.description.pristine"
+         class="alert alert-danger">
+      Description is required
+    </div>
 
     <div formArrayName="items">
     <ion-list>
 
       <ion-item *ngFor="let itemForm of items.controls; index as i">
-
+            <ion-label color="primary" fixed>Task #{{i + 1}}</ion-label>
             <ion-input type="text" formControlName="{{i}}"
-                       placeholder="Add a new checklist item"></ion-input>
+                       placeholder="Enter task description"></ion-input>
 
+      </ion-item>
+      <ion-item>
+        <button ion-button type="button"  (click)="addItem()">Add Task</button>
       </ion-item>
     </ion-list>
       </div>
@@ -29,11 +36,5 @@
 
 
   </form>
-  <ion-list>
-    <ion-list-header>You are going to create a checklist.</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+
 </ion-content>

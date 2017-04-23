@@ -28,7 +28,12 @@ export class ChecklistPage {
     list.items.push(item);
    }
 
+  addItem() {
+    this.items.push(new FormControl(''));
+  }
+
    get items(): FormArray { return this.checklistGroup.get('items') as FormArray;}
+
    toFormGroup(list) {
       var itemsArray = [];
       list.items.forEach(item => {

@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <div>This is where you'll add items to your planner.</div>
+  <h2>This is where you'll add items to your planner.</h2>
   <div>
     <button ion-item (click)="createChecklist($event)">
       <ion-icon name="add" item-left></ion-icon>
@@ -15,14 +15,24 @@
     </button>
   </div>
 
-  <ion-list>
-    <ion-list-header>Current Checklists</ion-list-header>
+    <h2>Current Checklists</h2>
     <ion-item *ngFor="let item of currentItems">
-      <span>{{item.description}}&nbsp;&nbsp;</span>
-      <span>Created:&nbsp;</span><span>{{item.dateAdded}}</span>
+      <ion-grid class="boxed-checklist">
+        <ion-row>
+          <ion-col col-1><span class="boxed-checklist-name">{{item.description}}</span></ion-col>
+          <ion-col col-1><i>{{item.dateAdded | date:shortDate}}</i></ion-col>
+          <ion-col col-10></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let citem of item.items">
+          <ion-col col-1 *ngIf="citem.completed"><ion-icon name="checkmark-circle"></ion-icon></ion-col>
+          <ion-col col-1 *ngIf="!citem.completed"><ion-icon name="sad"></ion-icon></ion-col>
+          <ion-col col-2>{{citem}}</ion-col>
+          <ion-col col-8></ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
     <ion-item *ngIf="currentItems.length == 0">
       <i>You don't have any checklists.</i>
     </ion-item>
-  </ion-list>
+
 </ion-content>
