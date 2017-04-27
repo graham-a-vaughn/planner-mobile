@@ -12,6 +12,8 @@ import { ChecklistPage } from '../pages/checklist/checklist';
 import { Checklist } from '../entities/checklist';
 import { ChecklistItem } from '../entities/checklist-item';
 
+import { ChecklistService } from '../entity-services/checklist-service';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -40,6 +42,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    ChecklistService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

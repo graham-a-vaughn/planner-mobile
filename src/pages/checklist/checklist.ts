@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { Checklist } from '../../entities/checklist';
 import { ChecklistItem } from '../../entities/checklist-item';
+import { ChecklistService } from '../../entity-services/checklist-service'
 
 @Component({
   selector: 'page-checklist',
@@ -15,47 +16,26 @@ export class ChecklistPage {
   checklist: Checklist;
   currentItems: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder,
+    private checklistService: ChecklistService) {
     this.checklist = new Checklist();
-    this.addItemToChecklist(this.checklist);
-    this.toFormGroup(this.checklist);
+    this.checklist.items.push(new ChecklistItem({ index: 0 }));
+    this.checklistGroup = checklistService.getFormGroup(this.checklist);
     this.currentItems = navParams.get('currentItems');
+    console.log('Initial form group: ');
+    console.log(this.checklistGroup);
   }
-
-  addItemToChecklist(list) {
-    var idx = list.items.length;
-    var item = new ChecklistItem({ index: idx });
-    list.items.push(item);
-   }
 
   addItem() {
-    this.items.push(new FormControl(''));
+    this.checklistService.addItemAndForm(this.checklist, this.checklistGroup);
   }
 
-   get items(): FormArray { return this.checklistGroup.get('items') as FormArray;}
-
-   toFormGroup(list) {
-      var itemsArray = [];
-      list.items.forEach(item => {
-        itemsArray.push(item.description);
-      });
-      var itemsFormArray =  new FormArray([]);
-      itemsArray.forEach(item => { itemsFormArray.push(new FormControl(item))});
-      this.checklistGroup = new FormGroup({
-        description: new FormControl('', Validators.required),
-        items: itemsFormArray
-      });
-   }
+  get items(): FormArray { return this.checklistGroup.get('items') as FormArray;}
 
   logForm(){
     console.log(this.checklistGroup.value)
-    this.generateFields(this.checklistGroup.value);
     this.currentItems.push(this.checklistGroup.value);
     this.navCtrl.pop();
-  }
-
-  generateFields(clist) {
-    clist.dateAdded = new Date();
   }
 
 }
